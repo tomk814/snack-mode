@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://b4ltg2ckr5l6f"]
+
+[ext_resource type="Script" uid="uid://bgl8bkavjiotj" path="res://mob.gd" id="1_1qmh0"]
+[ext_resource type="Texture2D" uid="uid://cp7rj6tqc51yd" path="res://art/broccoli1.png" id="2_p11y5"]
+[ext_resource type="Texture2D" uid="uid://csji2y54fjif1" path="res://art/broccoli2.png" id="3_s5nov"]
+[ext_resource type="Texture2D" uid="uid://dti3t0m0gltds" path="res://art/broccoli3.png" id="4_b3mxk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pcqmr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_p11y5")
+}],
+"loop": true,
+"name": &"broc1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_s5nov")
+}],
+"loop": true,
+"name": &"broc2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_b3mxk")
+}],
+"loop": true,
+"name": &"broc3",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jbnni"]
+height = 32.0
+
+[node name="Mob" type="RigidBody2D" groups=["mobs"]]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_1qmh0")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_pcqmr")
+animation = &"broc3"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_jbnni")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

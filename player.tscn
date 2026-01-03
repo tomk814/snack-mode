@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0s8u6tq052vc"]
+
+[ext_resource type="Script" uid="uid://n854j1lp0eoq" path="res://player.gd" id="1_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://dmxlhmcfilkx4" path="res://art/ellie.png" id="2_onrkg"]
+[ext_resource type="AudioStream" uid="uid://h80cf2hw7u2p" path="res://art/monch.mp3" id="3_i3pqv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hqtel"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_onrkg")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_onrkg")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sweqy"]
+radius = 27.0
+height = 68.0
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_i3pqv")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+sprite_frames = SubResource("SpriteFrames_hqtel")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_sweqy")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_i3pqv")
+volume_db = 2.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
